@@ -30,12 +30,21 @@ public class TaskList {
      * @param id
      * @return Task; 
      */
-    public Task getTask(int id){
+    public Task getTaskId(int id){
         for(Task item : this.list){
             if(item.getId() == id){
                 return item;
             }
         }
         return null;
+    }
+    
+    /**
+     * Retorna el item de la lista, se requiere el index del item
+     * @param index
+     * @return Task
+     */
+    public Task getTaskIndex(int index){
+        return this.list.get(index);
     }
 }

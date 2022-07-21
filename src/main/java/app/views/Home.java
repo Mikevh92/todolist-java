@@ -4,6 +4,7 @@
  */
 package app.views;
 
+import app.views.TaskDetail;
 import app.models.Task;
 import app.models.TaskList;
 import javax.swing.DefaultListModel;
@@ -13,16 +14,16 @@ import java.awt.Color;
  *
  * @author miguelvazquez
  */
-public class HomeJFrame extends javax.swing.JFrame {
+public class Home extends javax.swing.JFrame {
     
-    TaskList taskList = new TaskList();
-    DefaultListModel listModel = new DefaultListModel();
-    String defaultTitleText = "Que hay de nuevo...";
+    private TaskList taskList = new TaskList();
+    private DefaultListModel listModel = new DefaultListModel();
+    private String defaultTitleText = "Que hay de nuevo...";
 
     /**
      * Creates new form HomeJFrame
      */
-    public HomeJFrame() {
+    public Home() {
         initComponents();
         jListTask.setModel(listModel);
         jListTask.setForeground(Color.BLACK);
@@ -48,7 +49,6 @@ public class HomeJFrame extends javax.swing.JFrame {
         jListTask = new javax.swing.JList<>();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setPreferredSize(new java.awt.Dimension(400, 500));
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
@@ -93,6 +93,9 @@ public class HomeJFrame extends javax.swing.JFrame {
         );
 
         jListTask.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jListTaskMouseClicked(evt);
+            }
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 jListTaskMousePressed(evt);
             }
@@ -150,7 +153,7 @@ public class HomeJFrame extends javax.swing.JFrame {
             task.setTitle(title);
 
             taskList.addTask(task);
-            listModel.add(0, " "+title);
+            listModel.addElement(title);
             InputTitle.setText(defaultTitleText);
             InputTitle.selectAll();
         }
@@ -163,40 +166,16 @@ public class HomeJFrame extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_jListTaskMousePressed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeJFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+    private void jListTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListTaskMouseClicked
+        // TODO add your handling code here:
+        if (evt.getClickCount() == 2) {
+            Task taskSelected = taskList.getTaskIndex(jListTask.locationToIndex(evt.getPoint()));
+            
+            TaskDetail detail = new TaskDetail(taskSelected);
+            detail.setVisible(true);
         }
-        //</editor-fold>
+    }//GEN-LAST:event_jListTaskMouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HomeJFrame().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField InputTitle;

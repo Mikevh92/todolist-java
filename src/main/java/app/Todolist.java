@@ -5,18 +5,19 @@
 
 package app;
 
-import app.views.HomeJFrame;
+import app.views.Home;
 
 /**
  *
  * @author miguelvazquez
  */
 public class Todolist {
+    
 
     public static void main(String[] args) {
         System.out.println("run...!");
         
-        HomeJFrame home = new HomeJFrame();
+        Home home = new Home();
         home.setVisible(true);
     }
 }
