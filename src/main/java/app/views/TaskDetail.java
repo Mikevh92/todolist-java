@@ -5,20 +5,41 @@
 package app.views;
 
 import app.models.Task;
+import app.models.TaskList;
+import javax.swing.DefaultListModel;
 
 /**
  *
  * @author miguelvazquez
  */
 public class TaskDetail extends javax.swing.JFrame {
+    private DefaultListModel listModel;
+    private int index;
+    private TaskList taskList;
+
     /**
      * Creates new form TaskDetail
      */
-    public TaskDetail(Task task) {
+    public TaskDetail() {
         initComponents();
+    }
+    
+    public void setTaskList(TaskList taskList) {
+        this.taskList = taskList;
+    }
+    
+    public void setDataTask(Task task){
         titleTextField.setText(task.getTitle());
         detailTextArea.setText(task.getDetails());
         realizadoCheck.setSelected(task.isDone());
+    }
+
+    public void setIndex(int index) {
+        this.index = index;
+    }
+    
+    public void setJListModel(DefaultListModel listModel){
+        this.listModel = listModel;
     }
 
     /**
@@ -103,6 +124,14 @@ public class TaskDetail extends javax.swing.JFrame {
 
     private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
         // TODO add your handling code here:
+        this.listModel.set(this.index, titleTextField.getText());
+        
+        Task task = new Task();
+        task.setTitle(titleTextField.getText());
+        task.setDetails(detailTextArea.getText());
+        task.setDone(realizadoCheck.isSelected());
+        this.taskList.setTask(this.index, task);
+        this.dispose();
     }//GEN-LAST:event_saveButtonMouseClicked
 
 

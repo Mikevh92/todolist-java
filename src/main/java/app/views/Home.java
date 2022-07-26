@@ -19,17 +19,19 @@ public class Home extends javax.swing.JFrame {
     private TaskList taskList = new TaskList();
     private DefaultListModel listModel = new DefaultListModel();
     private String defaultTitleText = "Que hay de nuevo...";
+    private TaskDetail detail;
 
     /**
      * Creates new form HomeJFrame
      */
-    public Home() {
+    public Home(TaskDetail detail) {
         initComponents();
         jListTask.setModel(listModel);
         jListTask.setForeground(Color.BLACK);
         jListTask.setSelectionBackground(new Color(187, 222, 251));
         jListTask.setFixedCellHeight(30);
         InputTitle.setText(defaultTitleText);
+        this.detail = detail;
     }
 
     /**
@@ -169,10 +171,14 @@ public class Home extends javax.swing.JFrame {
     private void jListTaskMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jListTaskMouseClicked
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
-            Task taskSelected = taskList.getTaskIndex(jListTask.locationToIndex(evt.getPoint()));
+            int index = jListTask.locationToIndex(evt.getPoint());
+            Task taskSelected = taskList.getTaskIndex(index);
             
-            TaskDetail detail = new TaskDetail(taskSelected);
-            detail.setVisible(true);
+            this.detail.setDataTask(taskSelected);
+            this.detail.setIndex(index);
+            this.detail.setJListModel(listModel);
+            this.detail.setTaskList(taskList);
+            this.detail.setVisible(true);
         }
     }//GEN-LAST:event_jListTaskMouseClicked
 

@@ -47,4 +47,11 @@ public class TaskList {
     public Task getTaskIndex(int index){
         return this.list.get(index);
     }
+    
+    /**
+     * modificar un item de la lista
+     */
+    public void setTask(int index, Task task){
+        this.list.set(index, task);
+    }
 }

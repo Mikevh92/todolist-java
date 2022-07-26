@@ -6,6 +6,7 @@
 package app;
 
 import app.views.Home;
+import app.views.TaskDetail;
 
 /**
  *
@@ -17,7 +18,8 @@ public class Todolist {
     public static void main(String[] args) {
         System.out.println("run...!");
         
-        Home home = new Home();
+        TaskDetail taskDetail = new TaskDetail();
+        Home home = new Home(taskDetail);
         home.setVisible(true);
     }
 }
