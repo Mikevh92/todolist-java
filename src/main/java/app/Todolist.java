@@ -6,8 +6,6 @@
 package app;
 
 import app.views.Home;
-import app.views.TaskDetail;
-
 /**
  *
  * @author miguelvazquez
@@ -18,8 +16,7 @@ public class Todolist {
     public static void main(String[] args) {
         System.out.println("run...!");
         
-        TaskDetail taskDetail = new TaskDetail();
-        Home home = new Home(taskDetail);
+        Home home = new Home();
         home.setVisible(true);
     }
 }

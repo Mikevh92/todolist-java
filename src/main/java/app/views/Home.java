@@ -4,9 +4,7 @@
  */
 package app.views;
 
-import app.views.TaskDetail;
-import app.models.Task;
-import app.models.TaskList;
+import app.controller.HomeController;
 import javax.swing.DefaultListModel;
 import java.awt.Color;
 
@@ -16,22 +14,20 @@ import java.awt.Color;
  */
 public class Home extends javax.swing.JFrame {
     
-    private TaskList taskList = new TaskList();
     private DefaultListModel listModel = new DefaultListModel();
     private String defaultTitleText = "Que hay de nuevo...";
-    private TaskDetail detail;
+    private HomeController homeController = new HomeController();
 
     /**
      * Creates new form HomeJFrame
      */
-    public Home(TaskDetail detail) {
+    public Home() {
         initComponents();
         jListTask.setModel(listModel);
         jListTask.setForeground(Color.BLACK);
         jListTask.setSelectionBackground(new Color(187, 222, 251));
         jListTask.setFixedCellHeight(30);
         InputTitle.setText(defaultTitleText);
-        this.detail = detail;
     }
 
     /**
@@ -146,15 +142,9 @@ public class Home extends javax.swing.JFrame {
 
     private void InputTitleKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_InputTitleKeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode() == 10 
-                && !InputTitle.getText().isEmpty()
-                && !InputTitle.getText().equals(defaultTitleText)){
+        if(evt.getKeyCode() == 10 && !InputTitle.getText().isEmpty() && !InputTitle.getText().equals(defaultTitleText)){
             String title = InputTitle.getText().trim();
-        
-            Task task = new Task();
-            task.setTitle(title);
-
-            taskList.addTask(task);
+            homeController.addInitTask(title);
             listModel.addElement(title);
             InputTitle.setText(defaultTitleText);
             InputTitle.selectAll();
@@ -172,13 +162,13 @@ public class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         if (evt.getClickCount() == 2) {
             int index = jListTask.locationToIndex(evt.getPoint());
-            Task taskSelected = taskList.getTaskIndex(index);
             
-            this.detail.setDataTask(taskSelected);
-            this.detail.setIndex(index);
-            this.detail.setJListModel(listModel);
-            this.detail.setTaskList(taskList);
-            this.detail.setVisible(true);
+            TaskDetail taskDetail = new TaskDetail();
+            taskDetail.setHomeController(homeController);
+            taskDetail.setIndexItem(index);
+            taskDetail.setListModel(listModel);
+            taskDetail.showData();
+            taskDetail.setVisible(true);
         }
     }//GEN-LAST:event_jListTaskMouseClicked
 

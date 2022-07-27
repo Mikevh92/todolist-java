@@ -4,8 +4,8 @@
  */
 package app.views;
 
+import app.controller.HomeController;
 import app.models.Task;
-import app.models.TaskList;
 import javax.swing.DefaultListModel;
 
 /**
@@ -13,33 +13,35 @@ import javax.swing.DefaultListModel;
  * @author miguelvazquez
  */
 public class TaskDetail extends javax.swing.JFrame {
+    
+    private HomeController homeController;
+    private int indexItem;
     private DefaultListModel listModel;
-    private int index;
-    private TaskList taskList;
 
+    public void setListModel(DefaultListModel listModel) {
+        this.listModel = listModel;
+    }
+
+    public void setIndexItem(int indexItem) {
+        this.indexItem = indexItem;
+    }
+
+    public void setHomeController(HomeController homeController) {
+        this.homeController = homeController;
+    }
+    
+    public void showData(){
+        Task task = this.homeController.getTaskSelected(this.indexItem);
+        titleTextField.setText(task.getTitle());
+        detailTextArea.setText(task.getDetails());
+        realizadoCheck.setSelected(task.isDone());
+    }
+    
     /**
      * Creates new form TaskDetail
      */
     public TaskDetail() {
         initComponents();
-    }
-    
-    public void setTaskList(TaskList taskList) {
-        this.taskList = taskList;
-    }
-    
-    public void setDataTask(Task task){
-        titleTextField.setText(task.getTitle());
-        detailTextArea.setText(task.getDetails());
-        realizadoCheck.setSelected(task.isDone());
-    }
-
-    public void setIndex(int index) {
-        this.index = index;
-    }
-    
-    public void setJListModel(DefaultListModel listModel){
-        this.listModel = listModel;
     }
 
     /**
@@ -124,13 +126,12 @@ public class TaskDetail extends javax.swing.JFrame {
 
     private void saveButtonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_saveButtonMouseClicked
         // TODO add your handling code here:
-        this.listModel.set(this.index, titleTextField.getText());
+        String title = titleTextField.getText();
+        String detail = detailTextArea.getText();
+        boolean realizado = realizadoCheck.isSelected();
         
-        Task task = new Task();
-        task.setTitle(titleTextField.getText());
-        task.setDetails(detailTextArea.getText());
-        task.setDone(realizadoCheck.isSelected());
-        this.taskList.setTask(this.index, task);
+        homeController.setTaskItem(this.indexItem, title, detail, realizado);
+        listModel.set(this.indexItem, title);
         this.dispose();
     }//GEN-LAST:event_saveButtonMouseClicked
 
