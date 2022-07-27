@@ -25,11 +25,14 @@ public class HomeController {
     }
     
     public void setTaskItem(int index, String title, String detail, boolean realizado){
-        Task task = new Task();
-        task.setTitle(title);
-        task.setDetails(detail);
-        task.setDone(realizado);
-        
-        this.taskList.setTask(index, task);
+        if(realizado){
+            this.taskList.removeTask(index);
+        }else{
+            Task task = new Task();
+            task.setTitle(title);
+            task.setDetails(detail);
+            task.setDone(realizado);
+            this.taskList.setTask(index, task);
+        }
     }
 }

@@ -54,4 +54,11 @@ public class TaskList {
     public void setTask(int index, Task task){
         this.list.set(index, task);
     }
+    
+    /**
+     * elimina un item de la lista
+     */
+    public void removeTask(int index){
+        this.list.remove(index);
+    }
 }

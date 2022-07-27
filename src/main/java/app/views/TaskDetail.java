@@ -42,6 +42,7 @@ public class TaskDetail extends javax.swing.JFrame {
      */
     public TaskDetail() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -131,7 +132,12 @@ public class TaskDetail extends javax.swing.JFrame {
         boolean realizado = realizadoCheck.isSelected();
         
         homeController.setTaskItem(this.indexItem, title, detail, realizado);
-        listModel.set(this.indexItem, title);
+        
+        if(realizado){
+            listModel.remove(this.indexItem);
+        }else{
+            listModel.set(this.indexItem, title);
+        }
         this.dispose();
     }//GEN-LAST:event_saveButtonMouseClicked
 

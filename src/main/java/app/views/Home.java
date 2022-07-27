@@ -28,6 +28,7 @@ public class Home extends javax.swing.JFrame {
         jListTask.setSelectionBackground(new Color(187, 222, 251));
         jListTask.setFixedCellHeight(30);
         InputTitle.setText(defaultTitleText);
+        this.setLocationRelativeTo(null);
     }
 
     /**
